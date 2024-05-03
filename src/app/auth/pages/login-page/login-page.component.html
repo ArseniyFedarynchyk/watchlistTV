@@ -1,1 +1,21 @@
-<p>login-page works!</p>
+<form class="login-form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
+  <mat-form-field class="login-form-field">
+    <mat-label>Enter your login</mat-label>
+    <input matInput [formControl]="authForm.controls.login" />
+  </mat-form-field>
+  <mat-form-field class="login-form-field">
+    <mat-label>Enter your password</mat-label>
+    <input matInput [formControl]="authForm.controls.password" />
+  </mat-form-field>
+
+  <div class="submit-button">
+    <button
+      mat-raised-button
+      color="primary"
+      class="submit-button-btn"
+      type="submit"
+    >
+      Log in
+    </button>
+  </div>
+</form>
