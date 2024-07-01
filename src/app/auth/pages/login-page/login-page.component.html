@@ -1,7 +1,7 @@
 <form class="login-form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
   <mat-form-field class="login-form-field">
     <mat-label>Enter your login</mat-label>
-    <input matInput [formControl]="authForm.controls.login" />
+    <input matInput [formControl]="authForm.controls.email" />
   </mat-form-field>
   <mat-form-field class="login-form-field">
     <mat-label>Enter your password</mat-label>
