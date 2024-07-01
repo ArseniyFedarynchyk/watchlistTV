@@ -56,4 +56,8 @@ export class LoginPageStore extends ComponentStore<LoginPageState> {
       )
     );
   });
+
+  togglePasswordVisibility(): void {
+    this.patchState((state) => ({ isPasswordHidden: !state.isPasswordHidden }));
+  }
 }

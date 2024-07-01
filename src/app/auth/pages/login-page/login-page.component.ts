@@ -47,4 +47,8 @@ export class LoginPageComponent {
     const rawFormValue = this.authForm.getRawValue();
     this.loginPageStore.login(rawFormValue);
   }
+
+  togglePasswordVisibility(): void {
+    this.loginPageStore.togglePasswordVisibility();
+  }
 }

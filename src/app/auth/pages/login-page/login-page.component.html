@@ -8,9 +8,21 @@
     <mat-label>Enter your password</mat-label>
     <input
       matInput
-      [type]="'password'"
+      [type]="vm.isPasswordHidden ? 'password' : 'text'"
       [formControl]="authForm.controls.password"
     />
+    <button
+      type="button"
+      mat-icon-button
+      matSuffix
+      (click)="togglePasswordVisibility()"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="vm.isPasswordHidden"
+    >
+      <mat-icon>{{
+        vm.isPasswordHidden ? "visibility_off" : "visibility"
+      }}</mat-icon>
+    </button>
   </mat-form-field>
   @if (vm.error) {
   <mat-error>"Wrong credentials"</mat-error>
