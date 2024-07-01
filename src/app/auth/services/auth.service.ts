@@ -5,7 +5,6 @@ import {
   user,
   signOut,
 } from '@angular/fire/auth';
-import { Router } from '@angular/router';
 import { Observable, from } from 'rxjs';
 
 @Injectable({
@@ -14,10 +13,7 @@ import { Observable, from } from 'rxjs';
 export class AuthService {
   user$ = user(this.fireAuth);
 
-  constructor(
-    private readonly fireAuth: Auth,
-    private readonly router: Router
-  ) {}
+  constructor(private readonly fireAuth: Auth) {}
 
   login(email: string, password: string): Observable<void> {
     const promise = signInWithEmailAndPassword(
