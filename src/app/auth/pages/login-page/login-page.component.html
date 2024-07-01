@@ -20,12 +20,12 @@
       [attr.aria-pressed]="vm.isPasswordHidden"
     >
       <mat-icon>{{
-        vm.isPasswordHidden ? "visibility_off" : "visibility"
+        vm.isPasswordHidden ? "visibility" : "visibility_off"
       }}</mat-icon>
     </button>
   </mat-form-field>
   @if (vm.error) {
-  <mat-error>"Wrong credentials"</mat-error>
+  <mat-error>Wrong credentials</mat-error>
   }
   <div class="submit-button">
     <button
