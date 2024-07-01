@@ -9,8 +9,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { LoginPageStore } from './login-page.store';
 
 @Component({
   selector: 'app-login-page',
@@ -28,20 +27,17 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent {
   readonly authForm = this.fb.nonNullable.group({
-    login: ['', Validators.required],
+    email: ['', Validators.required],
     password: ['', Validators.required],
   });
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly authService: AuthService,
-    private readonly router: Router
+    private readonly loginPageStore: LoginPageStore
   ) {}
 
   onSubmit(): void {
     const rawFormValue = this.authForm.getRawValue();
-    this.authService
-      .login(rawFormValue.login, rawFormValue.password)
-      .subscribe(() => this.router.navigateByUrl(''));
+    this.loginPageStore.login(rawFormValue);
   }
 }
