@@ -10,6 +10,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { LoginPageStore } from './login-page.store';
+import { AuthService } from '../../services/auth.service';
+import { AsyncPipe, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login-page',
@@ -21,11 +23,15 @@ import { LoginPageStore } from './login-page.store';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    AsyncPipe,
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss',
+  providers: [LoginPageStore],
 })
 export class LoginPageComponent {
+  vm$ = this.loginPageStore.vm$;
+
   readonly authForm = this.fb.nonNullable.group({
     email: ['', Validators.required],
     password: ['', Validators.required],
@@ -33,7 +39,8 @@ export class LoginPageComponent {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly loginPageStore: LoginPageStore
+    private readonly loginPageStore: LoginPageStore,
+    private readonly authService: AuthService
   ) {}
 
   onSubmit(): void {

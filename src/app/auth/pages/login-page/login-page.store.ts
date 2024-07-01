@@ -18,7 +18,7 @@ export interface Credentials {
 }
 
 @Injectable()
-export class LoginPageStore extends ComponentStore<any> {
+export class LoginPageStore extends ComponentStore<LoginPageState> {
   private readonly isLoading$ = this.select((state) => state.isLoading);
   private readonly error$ = this.select((state) => state.error);
   private readonly isPasswordHidden$ = this.select(
@@ -47,8 +47,9 @@ export class LoginPageStore extends ComponentStore<any> {
             next: () => {
               this.router.navigate(['/']);
             },
-            error: (error: HttpErrorResponse) =>
-              this.patchState({ error: error.error.errorMessage }),
+            error: (error: HttpErrorResponse) => {
+              this.patchState({ error: error.message });
+            },
             finalize: () => this.patchState({ isLoading: false }),
           })
         )

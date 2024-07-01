@@ -1,3 +1,4 @@
+@if (vm$ | async; as vm) {
 <form class="login-form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
   <mat-form-field class="login-form-field">
     <mat-label>Enter your login</mat-label>
@@ -5,9 +6,15 @@
   </mat-form-field>
   <mat-form-field class="login-form-field">
     <mat-label>Enter your password</mat-label>
-    <input matInput [formControl]="authForm.controls.password" />
+    <input
+      matInput
+      [type]="'password'"
+      [formControl]="authForm.controls.password"
+    />
   </mat-form-field>
-
+  @if (vm.error) {
+  <mat-error>"Wrong credentials"</mat-error>
+  }
   <div class="submit-button">
     <button
       mat-raised-button
@@ -19,3 +26,4 @@
     </button>
   </div>
 </form>
+}
