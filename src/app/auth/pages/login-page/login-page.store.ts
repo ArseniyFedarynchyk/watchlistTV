@@ -48,7 +48,7 @@ export class LoginPageStore extends ComponentStore<LoginPageState> {
               this.router.navigate(['/']);
             },
             error: (error: HttpErrorResponse) => {
-              this.patchState({ error: error.message });
+              this.patchState({ error: 'Worng Credentials!' });
             },
             finalize: () => this.patchState({ isLoading: false }),
           })
