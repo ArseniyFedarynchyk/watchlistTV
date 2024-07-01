@@ -9,6 +9,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -30,9 +32,16 @@ export class LoginPageComponent {
     password: ['', Validators.required],
   });
 
-  constructor(private readonly fb: FormBuilder) {}
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly authService: AuthService,
+    private readonly router: Router
+  ) {}
 
   onSubmit(): void {
-    console.log('Submitted!');
+    const rawFormValue = this.authForm.getRawValue();
+    this.authService
+      .login(rawFormValue.login, rawFormValue.password)
+      .subscribe(() => this.router.navigateByUrl(''));
   }
 }
