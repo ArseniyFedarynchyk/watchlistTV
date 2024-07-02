@@ -39,8 +39,7 @@ export class LoginPageComponent {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly loginPageStore: LoginPageStore,
-    private readonly authService: AuthService
+    private readonly loginPageStore: LoginPageStore
   ) {}
 
   onSubmit(): void {

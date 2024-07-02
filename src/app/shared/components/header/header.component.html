@@ -6,7 +6,12 @@
     <button mat-button><mat-icon>movie</mat-icon>Movies</button>
     <button mat-button><mat-icon>tv</mat-icon>TV Series</button>
   </div>
-  <button mat-icon-button matTooltip="Log Out" aria-label="Log out button">
+  <button
+    (click)="logout()"
+    mat-icon-button
+    matTooltip="Log Out"
+    aria-label="Log out button"
+  >
     <mat-icon>logout</mat-icon>
   </button>
 </mat-toolbar>
