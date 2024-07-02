@@ -10,8 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { LoginPageStore } from './login-page.store';
-import { AuthService } from '../../services/auth.service';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-login-page',
