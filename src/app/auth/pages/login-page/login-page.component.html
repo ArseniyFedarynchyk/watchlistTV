@@ -1,0 +1,41 @@
+@if (vm$ | async; as vm) {
+<form class="login-form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
+  <mat-form-field class="login-form-field">
+    <mat-label>Enter your login</mat-label>
+    <input matInput [formControl]="authForm.controls.email" />
+  </mat-form-field>
+  <mat-form-field class="login-form-field">
+    <mat-label>Enter your password</mat-label>
+    <input
+      matInput
+      [type]="vm.isPasswordHidden ? 'password' : 'text'"
+      [formControl]="authForm.controls.password"
+    />
+    <button
+      type="button"
+      mat-icon-button
+      matSuffix
+      (click)="togglePasswordVisibility()"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="vm.isPasswordHidden"
+    >
+      <mat-icon>{{
+        vm.isPasswordHidden ? "visibility" : "visibility_off"
+      }}</mat-icon>
+    </button>
+  </mat-form-field>
+  @if (vm.error) {
+  <mat-error>{{ vm.error }}</mat-error>
+  }
+  <div class="submit-button">
+    <button
+      mat-raised-button
+      color="primary"
+      class="submit-button-btn"
+      type="submit"
+    >
+      Log in
+    </button>
+  </div>
+</form>
+}
