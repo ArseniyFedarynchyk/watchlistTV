@@ -36,7 +36,6 @@ export class AppComponent implements OnInit {
       } else {
         this.authService.currentUser.set(null);
       }
-      console.log(this.authService.currentUser());
     });
   }
 }
