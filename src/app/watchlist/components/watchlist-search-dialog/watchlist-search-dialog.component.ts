@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { WatchListSearchDialogStore } from './watchlist-search-dialog.store';
+import { map, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-watchlist-search-dialog',
@@ -14,13 +16,25 @@ import { MatInputModule } from '@angular/material/input';
   ],
   templateUrl: './watchlist-search-dialog.component.html',
   styleUrl: './watchlist-search-dialog.component.scss',
+  providers: [WatchListSearchDialogStore],
 })
-export class WatchlistSearchDialogComponent {
-  searchForm = this.fb.nonNullable.group({
-    search: [''],
+export class WatchlistSearchDialogComponent implements OnInit {
+  searchForm = this.fb.group({
+    search: '',
   });
+  private readonly searchFormValue$ = this.searchForm.valueChanges.pipe(
+    startWith(null),
+    map(() => this.searchForm.getRawValue())
+  );
 
-  constructor(private readonly fb: FormBuilder) {}
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly WatchListSearchDialogStore: WatchListSearchDialogStore
+  ) {}
+
+  ngOnInit(): void {
+    this.WatchListSearchDialogStore.updateFormValue(this.searchFormValue$);
+  }
 
   onSubmit(): void {
     console.log('submit was clicked!');
