@@ -1,9 +1,15 @@
 <div class="dialog">
   <div class="dialog__header">
-    <mat-form-field class="form-field">
-      <mat-label>Search...</mat-label>
-      <input matInput type="text" />
-    </mat-form-field>
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="form-field">
+        <mat-label>Search...</mat-label>
+        <input
+          matInput
+          type="text"
+          [formControl]="searchForm.controls.search"
+        />
+      </mat-form-field>
+    </form>
   </div>
   <p>
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, eos
