@@ -29,14 +29,10 @@ export class WatchlistSearchDialogComponent implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly WatchListSearchDialogStore: WatchListSearchDialogStore
+    private readonly watchListSearchDialogStore: WatchListSearchDialogStore
   ) {}
 
   ngOnInit(): void {
-    this.WatchListSearchDialogStore.updateFormValue(this.searchFormValue$);
-  }
-
-  onSubmit(): void {
-    console.log('submit was clicked!');
+    this.watchListSearchDialogStore.getMovies(this.searchFormValue$);
   }
 }
