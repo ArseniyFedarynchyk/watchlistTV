@@ -1,28 +1,40 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { WatchlistSearchDialogComponent } from './watchlist-search-dialog.component';
-import { tap } from 'rxjs';
+import { debounceTime, exhaustMap, map, Observable, tap } from 'rxjs';
+import { WatchListService } from '../../services/watchlist.service';
+import { Movie } from '../../models/movie.model';
 
 interface WatchlistState {
   searchFormValue: ReturnType<
     WatchlistSearchDialogComponent['searchForm']['getRawValue']
   > | null;
+  movies: Movie[];
 }
 
 @Injectable()
 export class WatchListSearchDialogStore extends ComponentStore<WatchlistState> {
-  constructor() {
-    super({ searchFormValue: null });
+  constructor(private readonly watchListService: WatchListService) {
+    super({ searchFormValue: null, movies: [] });
   }
 
-  readonly updateFormValue = this.effect<
-    ReturnType<WatchlistSearchDialogComponent['searchForm']['getRawValue']>
-  >((trigger$) => {
-    return trigger$.pipe(
-      tap((value) => {
-        console.log(value.search);
-        return this.patchState({ searchFormValue: value });
-      })
-    );
-  });
+  readonly getMovies = this.effect(
+    (
+      trigger$: Observable<{
+        search: string | null;
+      }>
+    ) => {
+      return trigger$.pipe(
+        debounceTime(300),
+        exhaustMap((value) => {
+          return this.watchListService.getMovies(value.search?.trim()).pipe(
+            map((value) => value.Search),
+            tap((value: Movie[]) => {
+              return this.patchState({ movies: value });
+            })
+          );
+        })
+      );
+    }
+  );
 }
