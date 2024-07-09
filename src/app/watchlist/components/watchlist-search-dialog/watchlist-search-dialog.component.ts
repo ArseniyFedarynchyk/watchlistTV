@@ -19,11 +19,11 @@ import { map, startWith } from 'rxjs';
   providers: [WatchListSearchDialogStore],
 })
 export class WatchlistSearchDialogComponent implements OnInit {
-  searchForm = this.fb.group({
+  searchForm = this.fb.nonNullable.group({
     search: '',
   });
   private readonly searchFormValue$ = this.searchForm.valueChanges.pipe(
-    startWith(null),
+    startWith(''),
     map(() => this.searchForm.getRawValue())
   );
 

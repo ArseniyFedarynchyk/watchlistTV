@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Movie } from '../models/movie.model';
+import { ServerResponse } from '../models/server-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +10,8 @@ import { Movie } from '../models/movie.model';
 export class WatchListService {
   constructor(private readonly http: HttpClient) {}
 
-  getMovies(movie: string): Observable<Movie[]> {
-    return this.http.get<Movie[]>(
+  getMovies(movie: string): Observable<ServerResponse> {
+    return this.http.get<ServerResponse>(
       `http://www.omdbapi.com/?s=${movie}&apikey=ac98c329`
     );
   }

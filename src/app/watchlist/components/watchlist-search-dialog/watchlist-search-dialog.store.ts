@@ -21,16 +21,18 @@ export class WatchListSearchDialogStore extends ComponentStore<WatchlistState> {
   readonly getMovies = this.effect(
     (
       trigger$: Observable<{
-        search: string | null;
+        search: string | '';
       }>
     ) => {
       return trigger$.pipe(
         debounceTime(300),
         exhaustMap((value) => {
-          return this.watchListService.getMovies(value.search?.trim()).pipe(
+          return this.watchListService.getMovies(value.search.trim()).pipe(
             map((value) => value.Search),
             tap((value: Movie[]) => {
-              return this.patchState({ movies: value });
+              value === undefined
+                ? this.patchState({ movies: [] })
+                : this.patchState({ movies: value });
             })
           );
         })
