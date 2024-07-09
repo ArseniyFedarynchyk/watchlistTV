@@ -12,20 +12,71 @@
 }
 
 .dialog {
-  width: 80%;
-  height: 80%;
-  padding: 5px 20px 20px 20px;
+  width: 90%;
+  height: 90%;
   border-radius: 15px;
   border: 1px solid black;
   background-color: rgb(194, 106, 106);
-  overflow-y: scroll;
+  overflow: auto;
 }
 
 .dialog__header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  left: 0;
+  padding-block: 8px;
+  background-color: red;
+  border-bottom: 1px solid black;
+}
+
+.form {
+  width: 100%;
   display: flex;
   justify-content: center;
 }
 
 .form-field {
-  min-width: 40%;
+  min-width: 60%;
+  margin-bottom: -22px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.movie__image_wrapper {
+  position: relative;
+  height: 450px;
+}
+
+.movie__image {
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.movie__title {
+  margin-bottom: 0.35rem;
+  font-weight: 500;
+}
+
+.movie__button {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1rem;
+  z-index: 1000;
+}
+
+.movie__tag {
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 0.5rem;
+  margin-right: 0.25rem;
+}
+
+.movie__tag:last-child {
+  margin-right: 0;
 }

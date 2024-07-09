@@ -4,6 +4,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { WatchListSearchDialogStore } from './watchlist-search-dialog.store';
 import { map, startWith } from 'rxjs';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-watchlist-search-dialog',
@@ -13,12 +16,18 @@ import { map, startWith } from 'rxjs';
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
+    AsyncPipe,
+    MatIconModule,
+    MatButtonModule,
+    NgOptimizedImage,
   ],
   templateUrl: './watchlist-search-dialog.component.html',
   styleUrl: './watchlist-search-dialog.component.scss',
   providers: [WatchListSearchDialogStore],
 })
 export class WatchlistSearchDialogComponent implements OnInit {
+  readonly movies$ = this.watchListSearchDialogStore.movies$;
+
   searchForm = this.fb.nonNullable.group({
     search: '',
   });
