@@ -1,7 +1,7 @@
-import { Movie } from './movie.model';
+import { MovieAPI } from './movie-api.model';
 
 export interface ServerResponse {
   Response: string;
-  Search: Movie[];
+  Search: MovieAPI[];
   totalResults: string;
 }
