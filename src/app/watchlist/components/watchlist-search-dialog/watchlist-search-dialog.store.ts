@@ -4,18 +4,21 @@ import { WatchlistSearchDialogComponent } from './watchlist-search-dialog.compon
 import { debounceTime, exhaustMap, map, Observable, tap } from 'rxjs';
 import { WatchListService } from '../../services/watchlist.service';
 import { Movie } from '../../models/movie.model';
+import { MovieMapperService } from '../../services/movie-mapper.service';
 
 interface WatchlistState {
-  searchFormValue: ReturnType<
-    WatchlistSearchDialogComponent['searchForm']['getRawValue']
-  > | null;
   movies: Movie[];
 }
 
 @Injectable()
 export class WatchListSearchDialogStore extends ComponentStore<WatchlistState> {
-  constructor(private readonly watchListService: WatchListService) {
-    super({ searchFormValue: null, movies: [] });
+  readonly movies$ = this.select((state) => state.movies);
+
+  constructor(
+    private readonly watchListService: WatchListService,
+    private readonly mapper: MovieMapperService
+  ) {
+    super({ movies: [] });
   }
 
   readonly getMovies = this.effect(
@@ -28,11 +31,12 @@ export class WatchListSearchDialogStore extends ComponentStore<WatchlistState> {
         debounceTime(300),
         exhaustMap((value) => {
           return this.watchListService.getMovies(value.search.trim()).pipe(
-            map((value) => value.Search),
+            map((res) => this.mapper.mapMovies(res)),
             tap((value: Movie[]) => {
-              value === undefined
-                ? this.patchState({ movies: [] })
-                : this.patchState({ movies: value });
+              if (value === undefined) return this.patchState({ movies: [] });
+              else {
+                return this.patchState({ movies: value });
+              }
             })
           );
         })
