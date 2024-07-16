@@ -8,6 +8,7 @@ import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { WatchListService } from '../../services/watchlist.service';
+import { MovieCardComponent } from '../movie-card/movie-card.component';
 
 @Component({
   selector: 'app-watchlist-search-dialog',
@@ -21,6 +22,7 @@ import { WatchListService } from '../../services/watchlist.service';
     MatIconModule,
     MatButtonModule,
     NgOptimizedImage,
+    MovieCardComponent,
   ],
   templateUrl: './watchlist-search-dialog.component.html',
   styleUrl: './watchlist-search-dialog.component.scss',
