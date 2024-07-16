@@ -7,7 +7,7 @@ import { ServerResponse } from '../models/server-response.model';
   providedIn: 'root',
 })
 export class WatchListService {
-  isDialogOpen = signal<boolean>(true);
+  isDialogOpen = signal<boolean>(false);
 
   constructor(private readonly http: HttpClient) {}
 
