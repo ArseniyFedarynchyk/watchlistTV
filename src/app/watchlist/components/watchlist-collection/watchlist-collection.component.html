@@ -1,0 +1,9 @@
+@for (movie of movies(); track movie.imdbID) {
+<app-movie-card
+  [title]="movie.title"
+  [poster]="movie.poster"
+  [type]="movie.type"
+  [year]="movie.year"
+  [imdbID]="movie.imdbID"
+/>
+}
