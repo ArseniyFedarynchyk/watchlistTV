@@ -1,7 +1,13 @@
 <div class="card">
   <div class="movie__image_wrapper">
     @if(poster() !== 'N/A') {
-    <img [ngSrc]="poster()" fill alt="moovie logo" class="movie__image" />
+    <img
+      [ngSrc]="poster()"
+      fill
+      priority
+      alt="moovie logo"
+      class="movie__image"
+    />
     <ng-content />
     } @else {
     <div class="warning">
