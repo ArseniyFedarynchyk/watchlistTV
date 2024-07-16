@@ -24,7 +24,6 @@ export class HeaderComponent {
   }
 
   openDialog(): void {
-    console.log('openDialog button was clicked!');
     this.wathclistService.isDialogOpen.set(true);
   }
 }

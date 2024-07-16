@@ -22,8 +22,9 @@
         <mat-icon>close</mat-icon>
       </button>
     </div>
+    @if (movies$ | async; as movies) { @if (movies.length > 1) {
     <div class="content">
-      @for (movie of movies$ | async; track movie.imbdID) {
+      @for (movie of movies; track movie.imbdID) {
       <div class="card">
         <div class="movie__image_wrapper">
           @if(movie.poster !== 'N/A') {
@@ -58,6 +59,16 @@
       </div>
       }
     </div>
+    } @else {
+    <div class="empty__content">
+      <mat-icon class="search-icon">search</mat-icon>
+      <h3>Search For a Title</h3>
+      <p>
+        Start typing in the search bar to see a list of matching movies and TV
+        series
+      </p>
+    </div>
+    } }
   </div>
 </div>
 }

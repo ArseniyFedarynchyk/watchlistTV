@@ -55,6 +55,20 @@
   padding: 1rem;
 }
 
+.empty__content {
+  height: calc(100% - 73px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.search-icon {
+  transform: scale(4);
+  margin-block-end: 2rem;
+}
+
 .movie__image_wrapper {
   display: flex;
   justify-content: center;
