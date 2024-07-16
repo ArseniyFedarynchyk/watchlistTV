@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="movie__image_wrapper">
+    @if(poster() !== 'N/A') {
+    <img [ngSrc]="poster()" fill alt="moovie logo" class="movie__image" />
+    <ng-content />
+    } @else {
+    <div class="warning">
+      <mat-icon class="warning__icon">warning</mat-icon>
+      <div>No poster</div>
+    </div>
+    }
+  </div>
+  <div class="movie__description">
+    <h3 class="movie__title">{{ title() }}</h3>
+    <div class="info">
+      <span class="movie__tag">{{ type() }}</span
+      ><span class="movie__tag">{{ year() }}</span>
+    </div>
+  </div>
+</div>

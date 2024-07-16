@@ -1,0 +1,46 @@
+.movie__image_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 450px;
+  transition: transform 200ms ease-in-out;
+}
+
+.movie__image_wrapper:hover {
+  transform: scale(1.02);
+}
+
+.movie__image {
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.movie__title {
+  margin-bottom: 0.35rem;
+  font-weight: 500;
+}
+
+.movie__tag {
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 0.5rem;
+  margin-right: 0.25rem;
+}
+
+.movie__tag:last-child {
+  margin-right: 0;
+}
+
+.warning {
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.warning__icon {
+  transform: scale(2.5);
+  margin-block-end: 1.2rem;
+}
