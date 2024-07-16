@@ -1,4 +1,4 @@
-<app-watchlist-search-dialog />
+<app-watchlist-search-dialog (newMovie)="addNewMovie($event)" />
 @if(movies$ | async; as movies){
 <app-watchlist-collection [movies]="movies" />
 }

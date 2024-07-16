@@ -3,6 +3,7 @@ import { WatchlistSearchDialogComponent } from '../../components/watchlist-searc
 import { WatchlistPageStore } from './watchlist-page.store';
 import { WatchlistCollectionComponent } from '../../components/watchlist-collection/watchlist-collection.component';
 import { AsyncPipe } from '@angular/common';
+import { Movie } from '../../models/movie.model';
 
 @Component({
   selector: 'app-watchlist-page',
@@ -23,5 +24,9 @@ export class WatchlistPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.watchlistPageStore.getMovies();
+  }
+
+  addNewMovie(movie: Movie): void {
+    this.watchlistPageStore.addMovie(movie);
   }
 }

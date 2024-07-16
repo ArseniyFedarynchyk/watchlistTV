@@ -34,4 +34,8 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
       })
     );
   });
+
+  addMovie = this.updater((state, newMovie: Movie) => ({
+    movies: [...state.movies, newMovie],
+  }));
 }
