@@ -55,6 +55,11 @@
   align-items: center;
   position: relative;
   height: 450px;
+  transition: transform 200ms ease-in-out;
+}
+
+.movie__image_wrapper:hover {
+  transform: scale(1.02);
 }
 
 .movie__image {
