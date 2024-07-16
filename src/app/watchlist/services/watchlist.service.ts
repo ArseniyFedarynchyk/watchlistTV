@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ServerResponse } from '../models/server-response.model';
 
@@ -7,6 +7,8 @@ import { ServerResponse } from '../models/server-response.model';
   providedIn: 'root',
 })
 export class WatchListService {
+  isDialogOpen = signal<boolean>(true);
+
   constructor(private readonly http: HttpClient) {}
 
   getMovies(movie: string): Observable<ServerResponse> {

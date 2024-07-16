@@ -1,50 +1,63 @@
-<div class="dialog">
-  <div class="dialog__header">
-    <form [formGroup]="searchForm" class="form">
-      <mat-form-field class="form-field">
-        <mat-label>Search...</mat-label>
-        <input
-          matInput
-          type="text"
-          [formControl]="searchForm.controls.search"
-        />
-      </mat-form-field>
-    </form>
-  </div>
-  <div class="content">
-    @for (movie of movies$ | async; track movie.imbdID) {
-    <div class="card">
-      <div class="movie__image_wrapper">
-        @if(movie.poster !== 'N/A') {
-        <img
-          [ngSrc]="movie.poster"
-          fill
-          alt="moovie logo"
-          class="movie__image"
-        />
-        <button
-          class="movie__button"
-          mat-mini-fab
-          aria-label="Add a movie to your watchlist"
-          color="primary"
-        >
-          <mat-icon>add</mat-icon>
-        </button>
-        } @else {
-        <div class="warning">
-          <mat-icon class="warning__icon">warning</mat-icon>
-          <div>No poster</div>
-        </div>
-        }
-      </div>
-      <div class="movie__description">
-        <h3 class="movie__title">{{ movie.title }}</h3>
-        <div class="info">
-          <span class="movie__tag">{{ movie.type }}</span
-          ><span class="movie__tag">{{ movie.year }}</span>
-        </div>
-      </div>
+@if (isDialogOpen()) {
+<div class="backdrop">
+  <div class="dialog">
+    <div class="dialog__header">
+      <form [formGroup]="searchForm" class="form">
+        <mat-form-field class="form-field">
+          <mat-label>Search...</mat-label>
+          <input
+            matInput
+            type="text"
+            [formControl]="searchForm.controls.search"
+          />
+        </mat-form-field>
+      </form>
+      <button
+        class="close__button"
+        mat-mini-fab
+        color="primary"
+        aria-label="Close button"
+        (click)="closeDialog()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
     </div>
-    }
+    <div class="content">
+      @for (movie of movies$ | async; track movie.imbdID) {
+      <div class="card">
+        <div class="movie__image_wrapper">
+          @if(movie.poster !== 'N/A') {
+          <img
+            [ngSrc]="movie.poster"
+            fill
+            alt="moovie logo"
+            class="movie__image"
+          />
+          <button
+            class="movie__button"
+            mat-mini-fab
+            aria-label="Add a movie to your watchlist"
+            color="primary"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+          } @else {
+          <div class="warning">
+            <mat-icon class="warning__icon">warning</mat-icon>
+            <div>No poster</div>
+          </div>
+          }
+        </div>
+        <div class="movie__description">
+          <h3 class="movie__title">{{ movie.title }}</h3>
+          <div class="info">
+            <span class="movie__tag">{{ movie.type }}</span
+            ><span class="movie__tag">{{ movie.year }}</span>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
   </div>
 </div>
+}

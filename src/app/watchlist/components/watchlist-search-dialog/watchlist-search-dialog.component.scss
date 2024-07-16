@@ -1,4 +1,4 @@
-:host {
+.backdrop {
   position: absolute;
   top: 0;
   left: 0;
@@ -29,6 +29,12 @@
   padding-block: 8px;
   background-color: rgb(64, 64, 64);
   border-bottom: 1px solid black;
+}
+
+.close__button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
 
 .form {

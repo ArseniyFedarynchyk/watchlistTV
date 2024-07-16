@@ -7,6 +7,7 @@ import { map, startWith } from 'rxjs';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { WatchListService } from '../../services/watchlist.service';
 
 @Component({
   selector: 'app-watchlist-search-dialog',
@@ -26,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
   providers: [WatchListSearchDialogStore],
 })
 export class WatchlistSearchDialogComponent implements OnInit {
+  isDialogOpen = this.watchListService.isDialogOpen;
   readonly movies$ = this.watchListSearchDialogStore.movies$;
 
   searchForm = this.fb.nonNullable.group({
@@ -38,10 +40,15 @@ export class WatchlistSearchDialogComponent implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly watchListSearchDialogStore: WatchListSearchDialogStore
+    private readonly watchListSearchDialogStore: WatchListSearchDialogStore,
+    private readonly watchListService: WatchListService
   ) {}
 
   ngOnInit(): void {
     this.watchListSearchDialogStore.getMovies(this.searchFormValue$);
+  }
+
+  closeDialog(): void {
+    this.watchListService.isDialogOpen.set(false);
   }
 }
