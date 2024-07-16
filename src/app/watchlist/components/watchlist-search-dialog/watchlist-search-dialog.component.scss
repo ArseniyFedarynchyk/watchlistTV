@@ -16,7 +16,7 @@
   height: 90%;
   border-radius: 15px;
   border: 1px solid black;
-  background-color: rgb(194, 106, 106);
+  background-color: rgb(165, 165, 165);
   overflow: auto;
 }
 
@@ -26,7 +26,7 @@
   top: 0;
   left: 0;
   padding-block: 8px;
-  background-color: red;
+  background-color: rgb(64, 64, 64);
   border-bottom: 1px solid black;
 }
 
@@ -49,6 +49,9 @@
 }
 
 .movie__image_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   height: 450px;
 }
@@ -79,4 +82,17 @@
 
 .movie__tag:last-child {
   margin-right: 0;
+}
+
+.warning {
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.warning__icon {
+  transform: scale(2.5);
+  margin-block-end: 1.2rem;
 }

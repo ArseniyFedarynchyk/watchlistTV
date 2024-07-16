@@ -15,6 +15,7 @@
     @for (movie of movies$ | async; track movie.imbdID) {
     <div class="card">
       <div class="movie__image_wrapper">
+        @if(movie.poster !== 'N/A') {
         <img
           [ngSrc]="movie.poster"
           fill
@@ -25,9 +26,16 @@
           class="movie__button"
           mat-mini-fab
           aria-label="Add a movie to your watchlist"
+          color="primary"
         >
           <mat-icon>add</mat-icon>
         </button>
+        } @else {
+        <div class="warning">
+          <mat-icon class="warning__icon">warning</mat-icon>
+          <div>No poster</div>
+        </div>
+        }
       </div>
       <div class="movie__description">
         <h3 class="movie__title">{{ movie.title }}</h3>
