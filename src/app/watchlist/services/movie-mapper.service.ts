@@ -11,12 +11,16 @@ export class MovieMapperService {
     return response.Search?.map((movie) => this.mapMovie(movie));
   }
 
+  mapMovies2(movies: MovieAPI[]): Movie[] {
+    return movies.map((movie) => this.mapMovie(movie));
+  }
+
   mapMovie(movie: MovieAPI) {
     return {
       title: movie.Title,
       type: movie.Type,
       year: movie.Year,
-      imbdID: movie.imbdID,
+      imdbID: movie.imdbID,
       poster: movie.Poster,
     };
   }

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { WatchlistSearchDialogComponent } from '../../components/watchlist-search-dialog/watchlist-search-dialog.component';
+import { WatchlistPageStore } from './watchlist-page.store';
 
 @Component({
   selector: 'app-watchlist-page',
@@ -7,5 +8,12 @@ import { WatchlistSearchDialogComponent } from '../../components/watchlist-searc
   imports: [WatchlistSearchDialogComponent],
   templateUrl: './watchlist-page.component.html',
   styleUrl: './watchlist-page.component.scss',
+  providers: [WatchlistPageStore],
 })
-export class WatchlistPageComponent {}
+export class WatchlistPageComponent implements OnInit {
+  constructor(private readonly watchlistPageStore: WatchlistPageStore) {}
+
+  ngOnInit(): void {
+    this.watchlistPageStore.getMovies();
+  }
+}

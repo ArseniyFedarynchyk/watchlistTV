@@ -24,7 +24,7 @@
     </div>
     @if (movies$ | async; as movies) { @if (movies.length > 1) {
     <div class="content">
-      @for (movie of movies; track movie.imbdID) {
+      @for (movie of movies; track movie.imdbID) {
       <div class="card">
         <div class="movie__image_wrapper">
           @if(movie.poster !== 'N/A') {

@@ -30,7 +30,7 @@ export class WatchListSearchDialogStore extends ComponentStore<WatchlistState> {
       return trigger$.pipe(
         debounceTime(300),
         exhaustMap((value) => {
-          return this.watchListService.getMovies(value.search.trim()).pipe(
+          return this.watchListService.searchMovies(value.search.trim()).pipe(
             map((res) => this.mapper.mapMovies(res)),
             tap((value: Movie[]) => {
               if (value === undefined) return this.patchState({ movies: [] });

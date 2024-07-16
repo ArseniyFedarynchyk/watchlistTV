@@ -3,5 +3,5 @@ export interface Movie {
   title: string;
   type: string;
   year: string;
-  imbdID: string;
+  imdbID: string;
 }
