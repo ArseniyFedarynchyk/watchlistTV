@@ -1,1 +1,4 @@
 <app-watchlist-search-dialog />
+@if(movies$ | async; as movies){
+<app-watchlist-collection [movies]="movies" />
+}
