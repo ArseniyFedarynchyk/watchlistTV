@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, output } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { WatchListService } from '../../services/watchlist.service';
 import { MovieCardComponent } from '../movie-card/movie-card.component';
+import { Movie } from '../../models/movie.model';
 
 @Component({
   selector: 'app-watchlist-search-dialog',
@@ -29,6 +30,7 @@ import { MovieCardComponent } from '../movie-card/movie-card.component';
   providers: [WatchListSearchDialogStore],
 })
 export class WatchlistSearchDialogComponent implements OnInit {
+  newMovie = output<Movie>();
   isDialogOpen = this.watchListService.isDialogOpen;
   readonly movies$ = this.watchListSearchDialogStore.movies$;
 
@@ -52,5 +54,9 @@ export class WatchlistSearchDialogComponent implements OnInit {
 
   closeDialog(): void {
     this.watchListService.isDialogOpen.set(false);
+  }
+
+  addMovie(newMovie: Movie): void {
+    this.newMovie.emit(newMovie);
   }
 }
