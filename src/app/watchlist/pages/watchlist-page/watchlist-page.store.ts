@@ -12,6 +12,8 @@ export interface MoviesState {
 
 @Injectable()
 export class WatchlistPageStore extends ComponentStore<MoviesState> {
+  readonly movies$ = this.select((state) => state.movies);
+
   constructor(
     private readonly watchlistService: WatchListService,
     private readonly movieMapperService: MovieMapperService
