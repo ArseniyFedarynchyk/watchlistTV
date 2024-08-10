@@ -24,7 +24,7 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
     return trigger$.pipe(
       exhaustMap(() => {
         return this.watchlistService.getMovies().pipe(
-          map((movies) => this.movieMapperService.mapMovies2(movies)),
+          map((movies) => this.movieMapperService.mapMovies(movies)),
           tap((movies) => {
             this.patchState({ movies: movies });
           })

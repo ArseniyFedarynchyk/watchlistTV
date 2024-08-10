@@ -7,11 +7,11 @@ import { Movie } from '../models/movie.model';
   providedIn: 'root',
 })
 export class MovieMapperService {
-  mapMovies(response: ServerResponse): Movie[] {
+  mapMoviesFromAPI(response: ServerResponse): Movie[] {
     return response.Search?.map((movie) => this.mapMovie(movie));
   }
 
-  mapMovies2(movies: MovieAPI[]): Movie[] {
+  mapMovies(movies: MovieAPI[]): Movie[] {
     return movies.map((movie) => this.mapMovie(movie));
   }
 
