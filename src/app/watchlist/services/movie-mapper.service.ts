@@ -24,4 +24,15 @@ export class MovieMapperService {
       poster: movie.Poster,
     };
   }
+
+  mapMovieToAPIModel(movie: Movie): MovieAPI {
+    const movieMapped = {
+      Poster: movie.poster,
+      Title: movie.title,
+      Type: movie.type,
+      Year: movie.year,
+      imdbID: movie.imdbID,
+    };
+    return movieMapped;
+  }
 }
