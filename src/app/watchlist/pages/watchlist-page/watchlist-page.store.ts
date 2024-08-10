@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Movie } from '../../models/movie.model';
 import { ComponentStore } from '@ngrx/component-store';
-import { trigger } from '@angular/animations';
-import { exhaustMap, map, tap } from 'rxjs';
+import { exhaustMap, map, mergeMap, Observable, tap } from 'rxjs';
 import { WatchListService } from '../../services/watchlist.service';
 import { MovieMapperService } from '../../services/movie-mapper.service';
 
@@ -27,10 +26,17 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
         return this.watchlistService.getMovies().pipe(
           map((movies) => this.movieMapperService.mapMovies2(movies)),
           tap((movies) => {
-            console.log(movies);
             this.patchState({ movies: movies });
           })
         );
+      })
+    );
+  });
+
+  postMovie = this.effect((trigger$: Observable<Movie>) => {
+    return trigger$.pipe(
+      mergeMap((value) => {
+        return this.watchlistService.postMovies(value);
       })
     );
   });
