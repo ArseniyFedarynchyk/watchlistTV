@@ -4,3 +4,10 @@
   gap: 2rem;
   padding: 1rem;
 }
+
+.movie__delete_button {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  z-index: 10;
+}
