@@ -7,8 +7,6 @@ import {
   addDoc,
   collection,
   collectionData,
-  deleteDoc,
-  doc,
 } from '@angular/fire/firestore';
 import { MovieAPI } from '../models/movie-api.model';
 import { Movie } from '../models/movie.model';
