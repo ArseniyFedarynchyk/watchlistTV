@@ -1,4 +1,6 @@
+<app-watchlist-header class="watchlist-header" />
+@if (isDialogOpen()) {
 <app-watchlist-search-dialog (newMovie)="addNewMovie($event)" />
-@if(movies$ | async; as movies){
-<app-watchlist-collection [movies]="movies" />
+} @if(movies$ | async; as movies){
+<app-watchlist-collection class="watchlist-collection" [movies]="movies" />
 }
