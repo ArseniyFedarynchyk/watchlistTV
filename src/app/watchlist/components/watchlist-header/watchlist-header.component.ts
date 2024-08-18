@@ -4,16 +4,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuthService } from '../../../auth/services/auth.service';
-import { WatchListService } from '../../../watchlist/services/watchlist.service';
+import { WatchListService } from '../../services/watchlist.service';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-watchlist-header',
   standalone: true,
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatTooltipModule],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  templateUrl: './watchlist-header.component.html',
+  styleUrl: './watchlist-header.component.scss',
 })
-export class HeaderComponent {
+export class WatchlistHeaderComponent {
   constructor(
     private readonly authService: AuthService,
     private readonly wathclistService: WatchListService
