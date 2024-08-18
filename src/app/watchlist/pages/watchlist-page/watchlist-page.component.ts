@@ -21,8 +21,12 @@ import { WatchListService } from '../../services/watchlist.service';
   providers: [WatchlistPageStore],
 })
 export class WatchlistPageComponent implements OnInit {
-  readonly movies$ = this.watchlistPageStore.movies$;
-  isDialogOpen = this.watchListService.isDialogOpen;
+  // readonly shows$ = this.watchlistPageStore.shows$;
+  // readonly movies$ = this.watchlistPageStore.movies$;
+  // readonly series$ = this.watchlistPageStore.series$;
+  readonly isDialogOpen = this.watchListService.isDialogOpen;
+  readonly signal = this.watchlistPageStore.signal;
+  readonly vm$ = this.watchlistPageStore.vm$;
 
   constructor(
     private readonly watchlistPageStore: WatchlistPageStore,
@@ -35,5 +39,9 @@ export class WatchlistPageComponent implements OnInit {
 
   addNewMovie(movie: Movie): void {
     this.watchlistPageStore.postMovie(movie);
+  }
+
+  filterShows(value: string): void {
+    this.signal.set(value);
   }
 }

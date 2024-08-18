@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,6 +14,8 @@ import { WatchListService } from '../../services/watchlist.service';
   styleUrl: './watchlist-header.component.scss',
 })
 export class WatchlistHeaderComponent {
+  onShowsFilter = output<string>();
+
   constructor(
     private readonly authService: AuthService,
     private readonly wathclistService: WatchListService
@@ -25,5 +27,9 @@ export class WatchlistHeaderComponent {
 
   openDialog(): void {
     this.wathclistService.isDialogOpen.set(true);
+  }
+
+  filterShows(value: string): void {
+    this.onShowsFilter.emit(value);
   }
 }

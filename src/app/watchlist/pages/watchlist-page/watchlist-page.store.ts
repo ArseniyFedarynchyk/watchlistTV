@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Movie } from '../../models/movie.model';
 import { ComponentStore } from '@ngrx/component-store';
 import { exhaustMap, map, mergeMap, Observable, tap } from 'rxjs';
@@ -11,7 +11,19 @@ export interface MoviesState {
 
 @Injectable()
 export class WatchlistPageStore extends ComponentStore<MoviesState> {
-  readonly movies$ = this.select((state) => state.movies);
+  private readonly shows$ = this.select((state) => state.movies);
+  private readonly movies$ = this.select((state) =>
+    state.movies.filter((show) => show.type === 'movie')
+  );
+  private readonly series$ = this.select((state) =>
+    state.movies.filter((show) => show.type === 'series')
+  );
+  readonly vm$ = this.select({
+    shows: this.shows$,
+    movies: this.movies$,
+    series: this.series$,
+  });
+  readonly signal = signal<string>('all');
 
   constructor(
     private readonly watchlistService: WatchListService,
@@ -44,4 +56,8 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
   addMovie = this.updater((state, newMovie: Movie) => ({
     movies: [...state.movies, newMovie],
   }));
+
+  switchShows(value: string) {
+    this.signal.set(value);
+  }
 }

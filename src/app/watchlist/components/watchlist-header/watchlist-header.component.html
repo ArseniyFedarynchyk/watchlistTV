@@ -8,8 +8,15 @@
     <mat-icon>add</mat-icon>
   </button>
   <div>
-    <button mat-button><mat-icon>movie</mat-icon>Movies</button>
-    <button mat-button><mat-icon>tv</mat-icon>TV Series</button>
+    <button mat-button (click)="filterShows('all')">
+      <mat-icon>movie</mat-icon>All
+    </button>
+    <button mat-button (click)="filterShows('movies')">
+      <mat-icon>movie</mat-icon>Movies
+    </button>
+    <button mat-button (click)="filterShows('series')">
+      <mat-icon>tv</mat-icon>TV Series
+    </button>
   </div>
   <button
     (click)="logout()"
