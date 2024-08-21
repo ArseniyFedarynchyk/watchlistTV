@@ -7,6 +7,8 @@ import {
   addDoc,
   collection,
   collectionData,
+  deleteDoc,
+  doc,
 } from '@angular/fire/firestore';
 import { MovieAPI } from '../models/movie-api.model';
 import { Movie } from '../models/movie.model';
@@ -41,5 +43,11 @@ export class WatchListService {
     return this.http.get<ServerResponse>(
       `http://www.omdbapi.com/?s=${movie}&apikey=ac98c329`
     );
+  }
+
+  removeMovie(movieId: string): Observable<void> {
+    const docRef = doc(this.firestore, 'movies/' + movieId);
+    const promise = deleteDoc(docRef);
+    return from(promise);
   }
 }
