@@ -31,7 +31,7 @@ export class WatchListSearchDialogStore extends ComponentStore<WatchlistState> {
         debounceTime(300),
         exhaustMap((value) => {
           return this.watchListService.searchMovies(value.search.trim()).pipe(
-            map((res) => this.mapper.mapMoviesFromAPI(res)),
+            map((res) => this.mapper.mapMovies(res.Search)),
             tap((value: Movie[]) => {
               if (value === undefined) return this.patchState({ movies: [] });
               else {

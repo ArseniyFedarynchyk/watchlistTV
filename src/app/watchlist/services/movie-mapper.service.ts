@@ -8,12 +8,12 @@ import { MovieResponse } from '../models/movie-response';
   providedIn: 'root',
 })
 export class MovieMapperService {
-  mapMoviesFromAPI(response: ServerResponse): Movie[] {
-    return response.Search?.map((movie) => this.mapMovie(movie));
-  }
+  // mapMoviesFromAPI(response: ServerResponse): Movie[] {
+  //   return response.Search?.map((movie) => this.mapMovie(movie));
+  // }
 
   mapMovies(movies: MovieAPI[]): Movie[] {
-    return movies.map((movie) => this.mapMovie(movie));
+    return movies?.map((movie) => this.mapMovie(movie));
   }
 
   mapMovie(movie: MovieAPI) {
