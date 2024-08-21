@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgOptimizedImage } from '@angular/common';
 import { MovieCardComponent } from '../movie-card/movie-card.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-watchlist-collection',
@@ -14,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
     MovieCardComponent,
     MatButtonModule,
     MatIconModule,
+    MatTooltipModule,
   ],
   templateUrl: './watchlist-collection.component.html',
   styleUrl: './watchlist-collection.component.scss',

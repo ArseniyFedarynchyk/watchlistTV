@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { WatchListService } from '../../services/watchlist.service';
 import { MovieCardComponent } from '../movie-card/movie-card.component';
 import { Movie } from '../../models/movie.model';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-watchlist-search-dialog',
@@ -24,6 +25,7 @@ import { Movie } from '../../models/movie.model';
     MatButtonModule,
     NgOptimizedImage,
     MovieCardComponent,
+    MatTooltipModule,
   ],
   templateUrl: './watchlist-search-dialog.component.html',
   styleUrl: './watchlist-search-dialog.component.scss',
