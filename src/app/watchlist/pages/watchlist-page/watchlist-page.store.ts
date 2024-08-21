@@ -4,6 +4,7 @@ import { ComponentStore } from '@ngrx/component-store';
 import { exhaustMap, map, mergeMap, Observable, tap } from 'rxjs';
 import { WatchListService } from '../../services/watchlist.service';
 import { MovieMapperService } from '../../services/movie-mapper.service';
+import { MovieResponse } from '../../models/movie-response';
 
 export interface MoviesState {
   movies: Movie[];
@@ -37,18 +38,24 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
       exhaustMap(() => {
         return this.watchlistService.getMovies().pipe(
           map((movies) => this.movieMapperService.mapMovies(movies)),
-          tap((movies) => {
-            this.patchState({ movies: movies });
-          })
+          tap((movies) => this.patchState({ movies: movies }))
         );
       })
     );
   });
 
-  postMovie = this.effect((trigger$: Observable<Movie>) => {
+  postMovie = this.effect((trigger$: Observable<MovieResponse>) => {
     return trigger$.pipe(
-      mergeMap((value) => {
-        return this.watchlistService.postMovies(value);
+      mergeMap((newMovie) => {
+        return this.watchlistService.postMovies(newMovie);
+      })
+    );
+  });
+
+  removeMovie = this.effect((trigger$: Observable<string>) => {
+    return trigger$.pipe(
+      exhaustMap((movieId) => {
+        return this.watchlistService.removeMovie(movieId);
       })
     );
   });

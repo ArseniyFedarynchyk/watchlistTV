@@ -5,9 +5,21 @@
 @if (isDialogOpen()) {
 <app-watchlist-search-dialog (newMovie)="addNewMovie($event)" />
 } @if(vm$ | async; as vm) { @switch(signal()) { @case('all') {
-<app-watchlist-collection class="watchlist-collection" [movies]="vm.shows" />
+<app-watchlist-collection
+  class="watchlist-collection"
+  (deleteMovie)="onDelete($event)"
+  [movies]="vm.shows"
+/>
 } @case('series') {
-<app-watchlist-collection class="watchlist-collection" [movies]="vm.series" />
+<app-watchlist-collection
+  class="watchlist-collection"
+  (deleteMovie)="onDelete($event)"
+  [movies]="vm.series"
+/>
 } @case('movies') {
-<app-watchlist-collection class="watchlist-collection" [movies]="vm.movies" />
+<app-watchlist-collection
+  class="watchlist-collection"
+  (deleteMovie)="onDelete($event)"
+  [movies]="vm.movies"
+/>
 } } }

@@ -13,6 +13,7 @@ import {
 import { MovieAPI } from '../models/movie-api.model';
 import { Movie } from '../models/movie.model';
 import { MovieMapperService } from './movie-mapper.service';
+import { MovieResponse } from '../models/movie-response';
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +34,7 @@ export class WatchListService {
     }) as Observable<MovieAPI[]>;
   }
 
-  postMovies(movie: Movie) {
+  postMovies(movie: MovieResponse) {
     const movieMapped = this.movieMapperService.mapMovieToAPIModel(movie);
     const promise = addDoc(this.movieCollection, movieMapped);
     return from(promise);

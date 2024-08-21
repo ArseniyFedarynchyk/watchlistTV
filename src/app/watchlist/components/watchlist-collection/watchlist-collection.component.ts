@@ -20,8 +20,9 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class WatchlistCollectionComponent {
   readonly movies = input.required<Movie[]>();
+  readonly deleteMovie = output<string>();
 
-  onDelete(): void {
-    console.log('Delete button was clicked!');
+  onDelete(movie: Movie): void {
+    this.deleteMovie.emit(movie.id);
   }
 }

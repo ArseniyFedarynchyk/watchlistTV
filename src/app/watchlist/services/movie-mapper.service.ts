@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ServerResponse } from '../models/server-response.model';
 import { MovieAPI } from '../models/movie-api.model';
 import { Movie } from '../models/movie.model';
+import { MovieResponse } from '../models/movie-response';
 
 @Injectable({
   providedIn: 'root',
@@ -22,10 +23,17 @@ export class MovieMapperService {
       year: movie.Year,
       imdbID: movie.imdbID,
       poster: movie.Poster,
+      id: movie.id,
     };
   }
 
-  mapMovieToAPIModel(movie: Movie): MovieAPI {
+  mapMovieToAPIModel(movie: MovieResponse): {
+    Poster: string;
+    Title: string;
+    Type: string;
+    Year: string;
+    imdbID: string;
+  } {
     const movieMapped = {
       Poster: movie.poster,
       Title: movie.title,
