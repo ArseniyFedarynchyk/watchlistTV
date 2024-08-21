@@ -4,4 +4,5 @@ export interface MovieAPI {
   Type: string;
   Year: string;
   imdbID: string;
+  id: string;
 }
