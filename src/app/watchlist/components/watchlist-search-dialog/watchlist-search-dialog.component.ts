@@ -10,7 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { WatchListService } from '../../services/watchlist.service';
 import { MovieCardComponent } from '../movie-card/movie-card.component';
 import { Movie } from '../../models/movie.model';
-import { MovieResponse } from '../../models/movie-response';
 
 @Component({
   selector: 'app-watchlist-search-dialog',
@@ -31,7 +30,7 @@ import { MovieResponse } from '../../models/movie-response';
   providers: [WatchListSearchDialogStore],
 })
 export class WatchlistSearchDialogComponent implements OnInit {
-  newMovie = output<MovieResponse>();
+  newMovie = output<Movie>();
   isDialogOpen = this.watchListService.isDialogOpen;
   readonly movies$ = this.watchListSearchDialogStore.movies$;
 
@@ -57,7 +56,7 @@ export class WatchlistSearchDialogComponent implements OnInit {
     this.watchListService.isDialogOpen.set(false);
   }
 
-  addMovie(newMovie: MovieResponse): void {
-    this.newMovie.emit(newMovie);
+  addMovie(newMovie: Movie): void {
+    this.newMovie.emit({ ...newMovie, id: '' });
   }
 }

@@ -6,7 +6,6 @@ import { AsyncPipe } from '@angular/common';
 import { Movie } from '../../models/movie.model';
 import { WatchlistHeaderComponent } from '../../components/watchlist-header/watchlist-header.component';
 import { WatchListService } from '../../services/watchlist.service';
-import { MovieResponse } from '../../models/movie-response';
 
 @Component({
   selector: 'app-watchlist-page',
@@ -35,7 +34,7 @@ export class WatchlistPageComponent implements OnInit {
     this.watchlistPageStore.getMovies();
   }
 
-  addNewMovie(newMovie: MovieResponse): void {
+  addNewMovie(newMovie: Movie): void {
     this.watchlistPageStore.postMovie(newMovie);
   }
 

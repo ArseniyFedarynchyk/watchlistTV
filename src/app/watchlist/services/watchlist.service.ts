@@ -10,10 +10,8 @@ import {
   deleteDoc,
   doc,
 } from '@angular/fire/firestore';
-import { MovieAPI } from '../models/movie-api.model';
 import { Movie } from '../models/movie.model';
 import { MovieMapperService } from './movie-mapper.service';
-import { MovieResponse } from '../models/movie-response';
 
 @Injectable({
   providedIn: 'root',
@@ -28,21 +26,20 @@ export class WatchListService {
     private readonly movieMapperService: MovieMapperService
   ) {}
 
-  getMovies(): Observable<MovieAPI[]> {
+  getMovies(): Observable<Movie[]> {
     return collectionData(this.movieCollection, {
       idField: 'id',
-    }) as Observable<MovieAPI[]>;
+    }) as Observable<Movie[]>;
   }
 
-  postMovies(movie: MovieResponse) {
-    const movieMapped = this.movieMapperService.mapMovieToAPIModel(movie);
-    const promise = addDoc(this.movieCollection, movieMapped);
+  postMovies(movie: Movie) {
+    const promise = addDoc(this.movieCollection, movie);
     return from(promise);
   }
 
-  searchMovies(movie: string): Observable<ServerResponse> {
+  searchMovies(movieTitle: string): Observable<ServerResponse> {
     return this.http.get<ServerResponse>(
-      `http://www.omdbapi.com/?s=${movie}&apikey=ac98c329`
+      `http://www.omdbapi.com/?s=${movieTitle}&apikey=ac98c329`
     );
   }
 

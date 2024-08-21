@@ -3,8 +3,6 @@ import { Movie } from '../../models/movie.model';
 import { ComponentStore } from '@ngrx/component-store';
 import { exhaustMap, map, mergeMap, Observable, tap } from 'rxjs';
 import { WatchListService } from '../../services/watchlist.service';
-import { MovieMapperService } from '../../services/movie-mapper.service';
-import { MovieResponse } from '../../models/movie-response';
 
 export interface MoviesState {
   movies: Movie[];
@@ -26,25 +24,21 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
   });
   readonly signal = signal<string>('all');
 
-  constructor(
-    private readonly watchlistService: WatchListService,
-    private readonly movieMapperService: MovieMapperService
-  ) {
+  constructor(private readonly watchlistService: WatchListService) {
     super({ movies: [] });
   }
 
   getMovies = this.effect((trigger$) => {
     return trigger$.pipe(
       exhaustMap(() => {
-        return this.watchlistService.getMovies().pipe(
-          map((movies) => this.movieMapperService.mapMovies(movies)),
-          tap((movies) => this.patchState({ movies: movies }))
-        );
+        return this.watchlistService
+          .getMovies()
+          .pipe(tap((movies) => this.patchState({ movies: movies })));
       })
     );
   });
 
-  postMovie = this.effect((trigger$: Observable<MovieResponse>) => {
+  postMovie = this.effect((trigger$: Observable<Movie>) => {
     return trigger$.pipe(
       mergeMap((newMovie) => {
         return this.watchlistService.postMovies(newMovie);

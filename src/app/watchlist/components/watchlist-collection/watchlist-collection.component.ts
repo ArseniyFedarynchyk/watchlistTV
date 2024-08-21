@@ -22,7 +22,7 @@ export class WatchlistCollectionComponent {
   readonly movies = input.required<Movie[]>();
   readonly deleteMovie = output<string>();
 
-  onDelete(movie: Movie): void {
-    this.deleteMovie.emit(movie.id);
+  onDelete(movieId: string): void {
+    this.deleteMovie.emit(movieId);
   }
 }
