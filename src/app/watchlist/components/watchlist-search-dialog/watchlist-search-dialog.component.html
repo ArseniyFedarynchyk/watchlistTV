@@ -21,15 +21,15 @@
         <mat-icon>close</mat-icon>
       </button>
     </div>
-    @if (movies$ | async; as movies) { @if (movies.length > 1) {
+    @if (true) { @if (shows().length > 1) {
     <div class="content">
-      @for (movie of movies; track movie.imdbID) {
+      @for (show of shows(); track show.imdbID) {
       <app-movie-card
-        [title]="movie.title"
-        [poster]="movie.poster"
-        [type]="movie.type"
-        [year]="movie.year"
-        [imdbID]="movie.imdbID"
+        [title]="show.title"
+        [poster]="show.poster"
+        [type]="show.type"
+        [year]="show.year"
+        [imdbID]="show.imdbID"
       >
         <button
           matTooltip="Add to my list"
@@ -37,7 +37,7 @@
           mat-mini-fab
           aria-label="Add a movie to your watchlist"
           color="primary"
-          (click)="addMovie(movie)"
+          (click)="addMovie(show)"
         >
           <mat-icon>add</mat-icon>
         </button>

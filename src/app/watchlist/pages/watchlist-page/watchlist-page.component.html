@@ -2,8 +2,12 @@
   (onShowsFilter)="filterShows($event)"
   class="watchlist-header"
 />
-@if (isDialogOpen()) {
-<app-watchlist-search-dialog (newMovie)="addNewMovie($event)" />
+@if (isDialogOpen() && (vm$ | async); as vm) {
+<app-watchlist-search-dialog
+  [shows]="vm.showsAPI"
+  (newMovie)="addNewMovie($event)"
+  (searchFormValue)="onShowSearch($event)"
+/>
 } @if(vm$ | async; as vm) { @switch(signal()) { @case('all') {
 <app-watchlist-collection
   class="watchlist-collection"

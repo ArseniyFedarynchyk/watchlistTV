@@ -1,9 +1,8 @@
-import { Component, OnInit, output } from '@angular/core';
+import { Component, input, OnInit, output } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { WatchListSearchDialogStore } from './watchlist-search-dialog.store';
-import { map, startWith } from 'rxjs';
+import { map, Observable, startWith } from 'rxjs';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,12 +28,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   ],
   templateUrl: './watchlist-search-dialog.component.html',
   styleUrl: './watchlist-search-dialog.component.scss',
-  providers: [WatchListSearchDialogStore],
 })
 export class WatchlistSearchDialogComponent implements OnInit {
-  newMovie = output<Movie>();
+  readonly shows = input.required<Movie[]>();
+  readonly newMovie = output<Movie>();
+  readonly searchFormValue = output<Observable<{ search: string }>>();
   isDialogOpen = this.watchListService.isDialogOpen;
-  readonly movies$ = this.watchListSearchDialogStore.movies$;
 
   searchForm = this.fb.nonNullable.group({
     search: '',
@@ -46,16 +45,16 @@ export class WatchlistSearchDialogComponent implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly watchListSearchDialogStore: WatchListSearchDialogStore,
     private readonly watchListService: WatchListService
   ) {}
 
   ngOnInit(): void {
-    this.watchListSearchDialogStore.getMovies(this.searchFormValue$);
+    this.searchFormValue.emit(this.searchFormValue$);
   }
 
   closeDialog(): void {
     this.watchListService.isDialogOpen.set(false);
+    this.searchForm.reset();
   }
 
   addMovie(newMovie: Movie): void {

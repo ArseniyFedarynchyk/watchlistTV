@@ -6,6 +6,7 @@ import { AsyncPipe } from '@angular/common';
 import { Movie } from '../../models/movie.model';
 import { WatchlistHeaderComponent } from '../../components/watchlist-header/watchlist-header.component';
 import { WatchListService } from '../../services/watchlist.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-watchlist-page',
@@ -44,5 +45,9 @@ export class WatchlistPageComponent implements OnInit {
 
   onDelete(movieId: string) {
     this.watchlistPageStore.removeMovie(movieId);
+  }
+
+  onShowSearch(formValue: Observable<{ search: string }>): void {
+    this.watchlistPageStore.searchMovies(formValue);
   }
 }
