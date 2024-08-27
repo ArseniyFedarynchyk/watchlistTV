@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { Movie } from '../../models/movie.model';
 import { ComponentStore } from '@ngrx/component-store';
-import { exhaustMap, map, mergeMap, Observable, tap } from 'rxjs';
+import { exhaustMap, mergeMap, Observable, tap } from 'rxjs';
 import { WatchListService } from '../../services/watchlist.service';
 
 export interface MoviesState {

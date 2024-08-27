@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { WatchlistSearchDialogComponent } from './watchlist-search-dialog.component';
 import { debounceTime, exhaustMap, map, Observable, tap } from 'rxjs';
 import { WatchListService } from '../../services/watchlist.service';
 import { Movie } from '../../models/movie.model';
