@@ -7,6 +7,7 @@ import { Movie } from '../../models/movie.model';
 import { WatchlistHeaderComponent } from '../../components/watchlist-header/watchlist-header.component';
 import { WatchListService } from '../../services/watchlist.service';
 import { Observable } from 'rxjs';
+import { TypeOfShows } from '../../models/type-of-shows.type';
 
 @Component({
   selector: 'app-watchlist-page',
@@ -23,7 +24,7 @@ import { Observable } from 'rxjs';
 })
 export class WatchlistPageComponent implements OnInit {
   readonly isDialogOpen = this.watchListService.isDialogOpen;
-  readonly signal = this.watchlistPageStore.signal;
+  readonly typeOfShows = this.watchlistPageStore.typeOfShows;
   readonly vm$ = this.watchlistPageStore.vm$;
 
   constructor(
@@ -39,8 +40,8 @@ export class WatchlistPageComponent implements OnInit {
     this.watchlistPageStore.postMovie(newMovie);
   }
 
-  filterShows(value: string): void {
-    this.signal.set(value);
+  filterShows(typeOfShows: TypeOfShows): void {
+    this.typeOfShows.set(typeOfShows);
   }
 
   onDelete(movieId: string) {

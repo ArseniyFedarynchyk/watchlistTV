@@ -12,6 +12,7 @@ import {
 } from 'rxjs';
 import { WatchListService } from '../../services/watchlist.service';
 import { MovieMapperService } from '../../services/movie-mapper.service';
+import { TypeOfShows } from '../../models/type-of-shows.type';
 
 export interface MoviesState {
   shows: Movie[];
@@ -33,9 +34,9 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
     this.shows$,
     this.showsAPI$,
     (shows, showsAPI) =>
-      showsAPI.map((show) => ({
-        ...show,
-        isAdded: shows.some((movie) => movie.imdbID === show.imdbID),
+      showsAPI.map((showAPI) => ({
+        ...showAPI,
+        isAdded: shows.some((show) => show.imdbID === showAPI.imdbID),
       }))
   );
 
@@ -47,7 +48,7 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
     showsWithExistenceCheck: this.showsWithExistenceCheck$,
   });
 
-  readonly signal = signal<string>('all');
+  readonly typeOfShows = signal<TypeOfShows>('all');
 
   constructor(
     private readonly watchlistService: WatchListService,
@@ -104,7 +105,7 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
     movies: [...state.shows, newShow],
   }));
 
-  switchShows(value: string) {
-    this.signal.set(value);
+  switchShows(value: TypeOfShows) {
+    this.typeOfShows.set(value);
   }
 }

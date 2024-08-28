@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuthService } from '../../../auth/services/auth.service';
 import { WatchListService } from '../../services/watchlist.service';
+import { TypeOfShows } from '../../models/type-of-shows.type';
 
 @Component({
   selector: 'app-watchlist-header',
@@ -14,7 +15,7 @@ import { WatchListService } from '../../services/watchlist.service';
   styleUrl: './watchlist-header.component.scss',
 })
 export class WatchlistHeaderComponent {
-  onShowsFilter = output<string>();
+  onShowsFilter = output<TypeOfShows>();
 
   constructor(
     private readonly authService: AuthService,
@@ -29,7 +30,7 @@ export class WatchlistHeaderComponent {
     this.wathclistService.isDialogOpen.set(true);
   }
 
-  filterShows(value: string): void {
-    this.onShowsFilter.emit(value);
+  filterShows(typeOfShows: TypeOfShows): void {
+    this.onShowsFilter.emit(typeOfShows);
   }
 }

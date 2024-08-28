@@ -8,7 +8,7 @@
   (newMovie)="addNewMovie($event)"
   (searchFormValue)="onShowSearch($event)"
 />
-} @if(vm$ | async; as vm) { @switch(signal()) { @case('all') {
+} @if(vm$ | async; as vm) { @switch(typeOfShows()) { @case('all') {
 <app-watchlist-collection
   class="watchlist-collection"
   (deleteMovie)="onDelete($event)"
@@ -20,7 +20,7 @@
   (deleteMovie)="onDelete($event)"
   [movies]="vm.series"
 />
-} @case('movies') {
+} @case('movie') {
 <app-watchlist-collection
   class="watchlist-collection"
   (deleteMovie)="onDelete($event)"
