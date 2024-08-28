@@ -1,5 +1,6 @@
 :host {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -26,4 +27,8 @@
     min-width: 225px;
     width: 30vw;
   }
+}
+
+.credentials {
+  margin-top: 2rem;
 }
