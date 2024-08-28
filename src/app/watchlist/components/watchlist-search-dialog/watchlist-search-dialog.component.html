@@ -21,7 +21,7 @@
         <mat-icon>close</mat-icon>
       </button>
     </div>
-    @if (true) { @if (shows().length > 1) {
+    @if (shows().length > 1) {
     <div class="content">
       @for (show of shows(); track show.imdbID) {
       <app-movie-card
@@ -31,16 +31,28 @@
         [year]="show.year"
         [imdbID]="show.imdbID"
       >
+        @if (show.isAdded) {
+        <button
+          matTooltip="Added"
+          class="movie__button"
+          mat-mini-fab
+          aria-label="Show is already added to my list"
+          color="primary"
+        >
+          <mat-icon>check</mat-icon>
+        </button>
+        } @else {
         <button
           matTooltip="Add to my list"
           class="movie__button"
           mat-mini-fab
-          aria-label="Add a movie to your watchlist"
+          aria-label="Add a movie to my watchlist"
           color="primary"
           (click)="addMovie(show)"
         >
           <mat-icon>add</mat-icon>
         </button>
+        }
       </app-movie-card>
       }
     </div>
@@ -53,6 +65,6 @@
         series
       </p>
     </div>
-    } }
+    }
   </div>
 </div>

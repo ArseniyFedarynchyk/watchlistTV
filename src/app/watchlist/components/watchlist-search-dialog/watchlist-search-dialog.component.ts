@@ -30,7 +30,17 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   styleUrl: './watchlist-search-dialog.component.scss',
 })
 export class WatchlistSearchDialogComponent implements OnInit {
-  readonly shows = input.required<Movie[]>();
+  readonly shows = input.required<
+    {
+      poster: string;
+      title: string;
+      type: string;
+      year: string;
+      imdbID: string;
+      id: string;
+      isAdded: boolean;
+    }[]
+  >();
   readonly newMovie = output<Movie>();
   readonly searchFormValue = output<Observable<{ search: string }>>();
   isDialogOpen = this.watchListService.isDialogOpen;

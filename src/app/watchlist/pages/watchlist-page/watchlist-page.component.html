@@ -4,7 +4,7 @@
 />
 @if (isDialogOpen() && (vm$ | async); as vm) {
 <app-watchlist-search-dialog
-  [shows]="vm.showsAPI"
+  [shows]="vm.showsWithExtinsesCheck"
   (newMovie)="addNewMovie($event)"
   (searchFormValue)="onShowSearch($event)"
 />
