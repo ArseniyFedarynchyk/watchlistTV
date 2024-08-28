@@ -6,25 +6,35 @@ import { WatchListService } from '../../services/watchlist.service';
 import { MovieMapperService } from '../../services/movie-mapper.service';
 
 export interface MoviesState {
-  movies: Movie[];
+  shows: Movie[];
   showsAPI: Movie[];
 }
 
 @Injectable()
 export class WatchlistPageStore extends ComponentStore<MoviesState> {
-  private readonly shows$ = this.select((state) => state.movies);
+  private readonly shows$ = this.select((state) => state.shows);
   private readonly movies$ = this.select((state) =>
-    state.movies.filter((show) => show.type === 'movie')
+    state.shows.filter((show) => show.type === 'movie')
   );
   private readonly series$ = this.select((state) =>
-    state.movies.filter((show) => show.type === 'series')
+    state.shows.filter((show) => show.type === 'series')
   );
   private readonly showsAPI$ = this.select((state) => state.showsAPI);
+  private readonly showsWithExtinsesCheck$ = this.select(
+    this.shows$,
+    this.showsAPI$,
+    (shows, showsAPI) =>
+      showsAPI.map((show) => ({
+        ...show,
+        isAdded: shows.some((movie) => movie.imdbID === show.imdbID),
+      }))
+  );
   readonly vm$ = this.select({
     shows: this.shows$,
     movies: this.movies$,
     series: this.series$,
     showsAPI: this.showsAPI$,
+    showsWithExtinsesCheck: this.showsWithExtinsesCheck$,
   });
   readonly signal = signal<string>('all');
 
@@ -32,7 +42,7 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
     private readonly watchlistService: WatchListService,
     private readonly movieMapperService: MovieMapperService
   ) {
-    super({ movies: [], showsAPI: [] });
+    super({ shows: [], showsAPI: [] });
   }
 
   getMovies = this.effect((trigger$) => {
@@ -40,7 +50,7 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
       exhaustMap(() => {
         return this.watchlistService
           .getMovies()
-          .pipe(tap((movies) => this.patchState({ movies: movies })));
+          .pipe(tap((shows) => this.patchState({ shows: shows })));
       })
     );
   });
@@ -68,10 +78,10 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
         exhaustMap((value) => {
           return this.watchlistService.searchMovies(value.search.trim()).pipe(
             map((res) => this.movieMapperService.mapMovies(res.Search)),
-            tap((value: Movie[]) => {
-              if (value === undefined) return this.patchState({ showsAPI: [] });
+            tap((shows: Movie[]) => {
+              if (shows === undefined) return this.patchState({ showsAPI: [] });
               else {
-                return this.patchState({ showsAPI: value });
+                return this.patchState({ showsAPI: shows });
               }
             })
           );
@@ -80,9 +90,9 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
     }
   );
 
-  addMovie = this.updater((state, newMovie: Movie) => ({
+  addMovie = this.updater((state, newShow: Movie) => ({
     ...state,
-    movies: [...state.movies, newMovie],
+    movies: [...state.shows, newShow],
   }));
 
   switchShows(value: string) {
