@@ -1,7 +1,15 @@
 import { Injectable, signal } from '@angular/core';
 import { Movie } from '../../models/movie.model';
 import { ComponentStore } from '@ngrx/component-store';
-import { debounceTime, exhaustMap, map, mergeMap, Observable, tap } from 'rxjs';
+import {
+  debounceTime,
+  exhaustMap,
+  map,
+  mergeMap,
+  Observable,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { WatchListService } from '../../services/watchlist.service';
 import { MovieMapperService } from '../../services/movie-mapper.service';
 
@@ -20,7 +28,8 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
     state.shows.filter((show) => show.type === 'series')
   );
   private readonly showsAPI$ = this.select((state) => state.showsAPI);
-  private readonly showsWithExtinsesCheck$ = this.select(
+
+  private readonly showsWithExistenceCheck$ = this.select(
     this.shows$,
     this.showsAPI$,
     (shows, showsAPI) =>
@@ -29,13 +38,15 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
         isAdded: shows.some((movie) => movie.imdbID === show.imdbID),
       }))
   );
+
   readonly vm$ = this.select({
     shows: this.shows$,
     movies: this.movies$,
     series: this.series$,
     showsAPI: this.showsAPI$,
-    showsWithExtinsesCheck: this.showsWithExtinsesCheck$,
+    showsWithExistenceCheck: this.showsWithExistenceCheck$,
   });
+
   readonly signal = signal<string>('all');
 
   constructor(
@@ -75,15 +86,13 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
     (trigger$: Observable<{ search: string }>) => {
       return trigger$.pipe(
         debounceTime(300),
-        exhaustMap((value) => {
-          return this.watchlistService.searchMovies(value.search.trim()).pipe(
+        map((value) => value.search.trim()),
+        switchMap((value) => {
+          return this.watchlistService.searchMovies(value).pipe(
             map((res) => this.movieMapperService.mapMovies(res.Search)),
-            tap((shows: Movie[]) => {
-              if (shows === undefined) return this.patchState({ showsAPI: [] });
-              else {
-                return this.patchState({ showsAPI: shows });
-              }
-            })
+            tap((shows: Movie[] | undefined) =>
+              this.patchState({ showsAPI: shows ?? [] })
+            )
           );
         })
       );
