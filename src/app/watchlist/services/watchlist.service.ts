@@ -26,25 +26,25 @@ export class WatchListService {
     private readonly movieMapperService: MovieMapperService
   ) {}
 
-  getMovies(): Observable<Movie[]> {
+  getShows(): Observable<Movie[]> {
     return collectionData(this.movieCollection, {
       idField: 'id',
     }) as Observable<Movie[]>;
   }
 
-  postMovies(movie: Movie) {
-    const promise = addDoc(this.movieCollection, movie);
+  postShows(show: Movie) {
+    const promise = addDoc(this.movieCollection, show);
     return from(promise);
   }
 
-  searchMovies(movieTitle: string): Observable<ServerResponse> {
+  searchShows(movieTitle: string): Observable<ServerResponse> {
     return this.http.get<ServerResponse>(
       `http://www.omdbapi.com/?s=${movieTitle}&apikey=ac98c329`
     );
   }
 
-  removeMovie(movieId: string): Observable<void> {
-    const docRef = doc(this.firestore, 'movies/' + movieId);
+  removeShow(showId: string): Observable<void> {
+    const docRef = doc(this.firestore, 'movies/' + showId);
     const promise = deleteDoc(docRef);
     return from(promise);
   }

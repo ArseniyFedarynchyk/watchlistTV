@@ -51,46 +51,48 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
   readonly typeOfShows = signal<TypeOfShows>('all');
 
   constructor(
-    private readonly watchlistService: WatchListService,
+    private readonly watchListService: WatchListService,
     private readonly movieMapperService: MovieMapperService
   ) {
     super({ shows: [], showsAPI: [] });
   }
 
-  getMovies = this.effect((trigger$) => {
+  readonly getShows = this.effect((trigger$) => {
     return trigger$.pipe(
       exhaustMap(() => {
-        return this.watchlistService
-          .getMovies()
+        return this.watchListService
+          .getShows()
           .pipe(tap((shows) => this.patchState({ shows: shows })));
       })
     );
   });
 
-  postMovie = this.effect((trigger$: Observable<Movie>) => {
+  readonly postShow = this.effect((trigger$: Observable<Movie>) => {
     return trigger$.pipe(
-      mergeMap((newMovie) => {
-        return this.watchlistService.postMovies(newMovie);
+      mergeMap((newShow) => {
+        return this.watchListService.postShows(newShow);
       })
     );
   });
 
-  removeMovie = this.effect((trigger$: Observable<string>) => {
+  readonly removeShow = this.effect((trigger$: Observable<string>) => {
     return trigger$.pipe(
-      exhaustMap((movieId) => {
-        return this.watchlistService.removeMovie(movieId);
+      exhaustMap((showId) => {
+        return this.watchListService.removeShow(showId);
       })
     );
   });
 
-  readonly searchMovies = this.effect(
+  readonly searchShows = this.effect(
     (trigger$: Observable<{ search: string }>) => {
       return trigger$.pipe(
         debounceTime(300),
-        map((value) => value.search.trim()),
-        switchMap((value) => {
-          return this.watchlistService.searchMovies(value).pipe(
-            map((res) => this.movieMapperService.mapMovies(res.Search)),
+        map((formValue) => formValue.search.trim()),
+        switchMap((formValue) => {
+          return this.watchListService.searchShows(formValue).pipe(
+            map((serverResponse) =>
+              this.movieMapperService.mapMovies(serverResponse.Search)
+            ),
             tap((shows: Movie[] | undefined) =>
               this.patchState({ showsAPI: shows ?? [] })
             )
@@ -100,12 +102,12 @@ export class WatchlistPageStore extends ComponentStore<MoviesState> {
     }
   );
 
-  addMovie = this.updater((state, newShow: Movie) => ({
-    ...state,
-    movies: [...state.shows, newShow],
-  }));
+  // readonly addMovie = this.updater((state, newShow: Movie) => ({
+  //   ...state,
+  //   movies: [...state.shows, newShow],
+  // }));
 
-  switchShows(value: TypeOfShows) {
-    this.typeOfShows.set(value);
-  }
+  // switchShows(value: TypeOfShows): void {
+  //   this.typeOfShows.set(value);
+  // }
 }

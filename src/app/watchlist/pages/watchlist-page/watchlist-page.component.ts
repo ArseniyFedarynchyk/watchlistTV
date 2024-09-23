@@ -33,22 +33,22 @@ export class WatchlistPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.watchlistPageStore.getMovies();
+    this.watchlistPageStore.getShows();
   }
 
-  addNewMovie(newMovie: Movie): void {
-    this.watchlistPageStore.postMovie(newMovie);
+  addNewMovie(newShow: Movie): void {
+    this.watchlistPageStore.postShow(newShow);
   }
 
   filterShows(typeOfShows: TypeOfShows): void {
     this.typeOfShows.set(typeOfShows);
   }
 
-  onDelete(movieId: string) {
-    this.watchlistPageStore.removeMovie(movieId);
+  onDelete(showId: string) {
+    this.watchlistPageStore.removeShow(showId);
   }
 
   onShowSearch(formValue: Observable<{ search: string }>): void {
-    this.watchlistPageStore.searchMovies(formValue);
+    this.watchlistPageStore.searchShows(formValue);
   }
 }
