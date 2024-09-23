@@ -27,7 +27,7 @@
   left: 0;
   z-index: 9999;
   padding-block: 8px;
-  background-color: rgb(64, 64, 64);
+  background-color: #cecece;
   border-bottom: 1px solid black;
 }
 
@@ -53,6 +53,7 @@
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
   padding: 1rem;
+  background-color: white;
 }
 
 .empty__content {
@@ -62,6 +63,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  background-color: white;
 }
 
 .search-icon {
