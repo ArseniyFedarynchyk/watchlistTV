@@ -75,3 +75,14 @@
   bottom: 1rem;
   z-index: 1000;
 }
+
+@media (max-width: 500px) {
+  .form {
+    justify-content: start;
+    padding-inline-start: 3%;
+  }
+
+  .form-field {
+    min-width: 75%;
+  }
+}

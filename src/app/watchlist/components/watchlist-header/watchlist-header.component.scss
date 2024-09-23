@@ -2,3 +2,9 @@
   justify-content: space-between;
   padding: 0 5px;
 }
+
+@media (max-width: 500px) {
+  .label {
+    display: none;
+  }
+}
